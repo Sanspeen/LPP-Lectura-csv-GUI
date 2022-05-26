@@ -6,10 +6,8 @@
 package final_santiago_franco;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +17,8 @@ import javax.swing.table.DefaultTableModel;
 public class MainJFrame extends javax.swing.JFrame {
     
     DefaultTableModel tableModel;
-    private void upload(){
+    
+    private void upload(String route){
         try{
             String text = "";
             Object headers[] =  {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "Es fuerte?"};
@@ -27,7 +26,7 @@ public class MainJFrame extends javax.swing.JFrame {
             Object[] heros = new Object[9];
             
             if(true){
-                FileReader fileReader = new FileReader("C:\\Users\\User\\Downloads\\Libro_heroes.csv");
+                FileReader fileReader = new FileReader(route);
                 BufferedReader bufferReader = new BufferedReader(fileReader);
                 
                 while((text = bufferReader.readLine()) != null){
@@ -56,7 +55,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
-        upload();
+        upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv");
     }
 
     /**
@@ -72,8 +71,8 @@ public class MainJFrame extends javax.swing.JFrame {
         tblHeros = new javax.swing.JTable();
         lblDocumentUrl = new javax.swing.JLabel();
         txtDocumentUrl = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnUpload = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         lblStats = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,17 +99,17 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cargar datos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpload.setText("Cargar datos");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUploadActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Limpiar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("Limpiar");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -129,9 +128,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDocumentUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,8 +142,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDocumentUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDocumentUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnUpload)
+                    .addComponent(btnClear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(lblStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,13 +158,13 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDocumentUrlActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        upload(txtDocumentUrl.getText());
+    }//GEN-LAST:event_btnUploadActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtDocumentUrl.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,8 +202,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDocumentUrl;
     private javax.swing.JLabel lblStats;
