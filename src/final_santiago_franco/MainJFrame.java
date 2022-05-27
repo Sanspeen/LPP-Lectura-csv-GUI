@@ -23,8 +23,8 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void upload(String route, ArrayList<Hero> herosArray){
         try{
-            String text = "";
-            Object headers[] =  {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "Es fuerte?"};
+            String text;
+            Object headers[] =  {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "¿Es fuerte?"};
             tableModel = new DefaultTableModel(headers,0);
             Object[] heros = new Object[9];
             herosArray.clear();
@@ -47,6 +47,13 @@ public class MainJFrame extends javax.swing.JFrame {
                         Integer.parseInt(points[7])
                     ));
                     
+                    String strongMessage;
+                    if(herosArray.get(herosArray.size() -1).isStrong()){
+                        strongMessage = "¡Es fuerte!";
+                    }else{
+                        strongMessage = "No es fuerte";
+                    }
+                    
                     heros[0] = points[0];
                     heros[1] = points[1];
                     heros[2] = points[2];
@@ -55,7 +62,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     heros[5] = points[5];
                     heros[6] = points[6];
                     heros[7] = points[7];
-                    heros[8] = "Soon";
+                    heros[8] = strongMessage;
                    
                     tableModel.addRow(heros);
                 }
