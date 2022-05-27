@@ -81,15 +81,26 @@ public class MainJFrame extends javax.swing.JFrame {
         Hero majorityHPHero = new Hero("", 0, 0, 0, 0, 0, 0, 0);
 
         for (int i = 0; i < herosArray.size(); i++) {
-            if(majorityHPHero.getHealthPoints() < herosArray.get(i).getHealthPoints()){
+            if (majorityHPHero.getHealthPoints() < herosArray.get(i).getHealthPoints()) {
                 majorityHPHero = herosArray.get(i);
             }
         }
         
+        //Obtener promedio de aguante de los heroes.
+        int summation = 0;
+        for (int i = 0; i < herosArray.size(); i++) {
+            summation += herosArray.get(i).getResistencePoints();
+        }
         
+        double resistenceAvg = summation/herosArray.size();
         
-        lblStats.setText("<html><p>Resultados: <br>" +
-                "Heroe con mas HP: " + majorityHPHero.getName() + "</html>");
+        //Get average where their name begin with C word.
+
+        
+
+        lblStats.setText("<html><p>Resultados: <br>"
+                + "Heroe con mas HP: " + majorityHPHero.getName() + "<br>"
+                + "Promedio de aguante: " + resistenceAvg + "</html>");
     }
 
     /**
