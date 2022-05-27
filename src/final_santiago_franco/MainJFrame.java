@@ -16,44 +16,46 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class MainJFrame extends javax.swing.JFrame {
-    
+
     DefaultTableModel tableModel;
-    
+
     ArrayList<Hero> herosArray = new ArrayList<>();
-    
-    private void upload(String route, ArrayList<Hero> herosArray){
-        try{
+
+    private void upload(String route, ArrayList<Hero> herosArray) {
+        try {
             String text;
-            Object headers[] =  {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "¿Es fuerte?"};
-            tableModel = new DefaultTableModel(headers,0);
+            Object headers[] = {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "¿Es fuerte?"};
+            tableModel = new DefaultTableModel(headers, 0);
             Object[] heros = new Object[9];
             herosArray.clear();
-            
-            if(true){
+
+            if (true) {
                 FileReader fileReader = new FileReader(route);
                 BufferedReader bufferReader = new BufferedReader(fileReader);
-                
-                while((text = bufferReader.readLine()) != null){
+
+                while ((text = bufferReader.readLine()) != null) {
                     String points[] = text.split(";");
-                    
+
                     herosArray.add(new Hero(
-                        points[0],
-                        Integer.parseInt(points[1]),
-                        Integer.parseInt(points[2]),
-                        Integer.parseInt(points[3]),
-                        Integer.parseInt(points[4]),
-                        Integer.parseInt(points[5]),
-                        Integer.parseInt(points[6]),
-                        Integer.parseInt(points[7])
+                            points[0],
+                            Integer.parseInt(points[1]),
+                            Integer.parseInt(points[2]),
+                            Integer.parseInt(points[3]),
+                            Integer.parseInt(points[4]),
+                            Integer.parseInt(points[5]),
+                            Integer.parseInt(points[6]),
+                            Integer.parseInt(points[7])
                     ));
-                    
+
+                    //Separate in function.
                     String strongMessage;
-                    if(herosArray.get(herosArray.size() -1).isStrong()){
+                    if (herosArray.get(herosArray.size() - 1).isStrong()) {
                         strongMessage = "¡Es fuerte!";
-                    }else{
+                    } else {
                         strongMessage = "No es fuerte";
                     }
-                    
+
+                    //Resume in a cicle.
                     heros[0] = points[0];
                     heros[1] = points[1];
                     heros[2] = points[2];
@@ -63,14 +65,31 @@ public class MainJFrame extends javax.swing.JFrame {
                     heros[6] = points[6];
                     heros[7] = points[7];
                     heros[8] = strongMessage;
-                   
+
                     tableModel.addRow(heros);
                 }
                 tblHeros.setModel(tableModel);
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Error: " + e);
         }
+    }
+
+    private void generateResume() {
+
+        //Determinate the hero with majority of HP.
+        Hero majorityHPHero = new Hero("", 0, 0, 0, 0, 0, 0, 0);
+
+        for (int i = 0; i < herosArray.size(); i++) {
+            if(majorityHPHero.getHealthPoints() < herosArray.get(i).getHealthPoints()){
+                majorityHPHero = herosArray.get(i);
+            }
+        }
+        
+        
+        
+        lblStats.setText("<html><p>Resultados: <br>" +
+                "Heroe con mas HP: " + majorityHPHero.getName() + "</html>");
     }
 
     /**
@@ -79,6 +98,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv", herosArray);
+        generateResume();
     }
 
     /**
