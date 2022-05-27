@@ -8,6 +8,7 @@ package final_santiago_franco;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,12 +19,15 @@ public class MainJFrame extends javax.swing.JFrame {
     
     DefaultTableModel tableModel;
     
-    private void upload(String route){
+    ArrayList<Hero> herosArray = new ArrayList<>();
+    
+    private void upload(String route, ArrayList<Hero> herosArray){
         try{
             String text = "";
             Object headers[] =  {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "Es fuerte?"};
             tableModel = new DefaultTableModel(headers,0);
             Object[] heros = new Object[9];
+            herosArray.clear();
             
             if(true){
                 FileReader fileReader = new FileReader(route);
@@ -31,6 +35,18 @@ public class MainJFrame extends javax.swing.JFrame {
                 
                 while((text = bufferReader.readLine()) != null){
                     String points[] = text.split(";");
+                    
+                    herosArray.add(new Hero(
+                        points[0],
+                        Integer.parseInt(points[1]),
+                        Integer.parseInt(points[2]),
+                        Integer.parseInt(points[3]),
+                        Integer.parseInt(points[4]),
+                        Integer.parseInt(points[5]),
+                        Integer.parseInt(points[6]),
+                        Integer.parseInt(points[7])
+                    ));
+                    
                     heros[0] = points[0];
                     heros[1] = points[1];
                     heros[2] = points[2];
@@ -55,7 +71,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
-        upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv");
+        upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv", herosArray);
     }
 
     /**
@@ -159,7 +175,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDocumentUrlActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
-        upload(txtDocumentUrl.getText());
+        for (int i = 0; i < herosArray.size(); i++) {
+            System.out.println(herosArray.get(i).getName());
+        }
+        System.out.println("");
     }//GEN-LAST:event_btnUploadActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
