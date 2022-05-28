@@ -85,22 +85,37 @@ public class MainJFrame extends javax.swing.JFrame {
                 majorityHPHero = herosArray.get(i);
             }
         }
-        
-        //Obtener promedio de aguante de los heroes.
+
+        //Get average of resistance.
         int summation = 0;
         for (int i = 0; i < herosArray.size(); i++) {
             summation += herosArray.get(i).getResistencePoints();
         }
-        
-        double resistenceAvg = summation/herosArray.size();
-        
+
+        double resistenceAvg = summation / herosArray.size();
+
         //Get average where their name begin with C word.
+        ArrayList<Hero> CHeros = new ArrayList<>();
 
-        
+        //Fill the array jut with Heros which their name inits with "C" word.
+        for (int i = 0; i < herosArray.size(); i++) {
+            char initialNameWord = herosArray.get(i).getName().charAt(0);
+            if (initialNameWord == 'C' || initialNameWord == 'c') {
+                CHeros.add(herosArray.get(i));
+            }
+        }
 
-        lblStats.setText("<html><p>Resultados: <br>"
-                + "Heroe con mas HP: " + majorityHPHero.getName() + "<br>"
-                + "Promedio de aguante: " + resistenceAvg + "</html>");
+        int summationDefenseCHeros = 0;
+        for (int i = 0; i < CHeros.size(); i++) {
+            summationDefenseCHeros += CHeros.get(i).getDefensePoints();
+        }
+
+        double defenseCHerosAvg = summationDefenseCHeros / CHeros.size();
+
+        lblStats.setText("<html><p>Resultados: <br><br>"
+                + "-> Heroe con mas HP: " + majorityHPHero.getName() + "." + "<br><br>"
+                + "-> Promedio de aguante: " + resistenceAvg + " puntos de aguante." + "<br><br>"
+                + "-> Promedio de defensa de heroes que comienzan con C: " + defenseCHerosAvg + " puntos de defensa." + "</html>");
     }
 
     /**
@@ -153,7 +168,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        btnUpload.setText("Cargar datos");
+        btnUpload.setText("Actualizar datos");
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadActionPerformed(evt);
