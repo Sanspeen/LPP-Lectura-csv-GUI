@@ -22,7 +22,7 @@ public class MainJFrame extends javax.swing.JFrame {
     DefaultTableModel tableModel;
 
     ArrayList<Hero> herosArray = new ArrayList<>();
-    
+
     private TableAdapter tableAdapter;
 
     private void upload(String route, ArrayList<Hero> herosArray) {
@@ -133,7 +133,7 @@ public class MainJFrame extends javax.swing.JFrame {
         tableAdapter.fillHeader();
         tableAdapter.fillTable(herosArray);
         lblStats.setText(tableAdapter.generateResume(herosArray));
-        
+
         /*upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv", herosArray);
         generateResume();*/
     }
@@ -240,10 +240,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDocumentUrlActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
-        for (int i = 0; i < herosArray.size(); i++) {
-            System.out.println(herosArray.get(i).getName());
+
+        if (txtDocumentUrl.getText().equals("")) {
+            System.out.println("Ingrese la url de su documento por favor.");
+        } else {
+            try {
+                tableAdapter.fillList(herosArray, "G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv");
+                tableAdapter.fillTable(herosArray);
+            } catch (IOException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        System.out.println("");
+
     }//GEN-LAST:event_btnUploadActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
