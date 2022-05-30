@@ -53,7 +53,26 @@ public class TableAdapter {
     }
 
     public void fillTable(ArrayList<Hero> herosList) {
+        Object[] columns = new Object[defaultTableModel.getColumnCount()];
+        defaultTableModel.setRowCount(0);
+        for (Hero hero : herosList) {
+            columns[0] = hero.getName();
+            columns[1] = hero.getHealthPoints();
+            columns[2] = hero.getResistencePoints();
+            columns[3] = hero.getAtackPoints();
+            columns[4] = hero.getDefensePoints();
+            columns[5] = hero.getAccuracyPoints();
+            columns[6] = hero.getEscapePoints();
+            columns[7] = hero.getTotal();
 
+            if (herosList.get(herosList.size() - 1).isStrong()) {
+                columns[8] = "¡Es fuerte!";
+            } else {
+                columns[8] = "No es fuerte";
+            }
+            
+            defaultTableModel.addRow(columns);
+        }
     }
 
     public void generateResume(ArrayList<Hero> herosList) {
