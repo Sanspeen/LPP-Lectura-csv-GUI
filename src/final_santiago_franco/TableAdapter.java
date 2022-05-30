@@ -25,7 +25,7 @@ public class TableAdapter {
         defaultTableModel = new DefaultTableModel();
     }
 
-    public void setModel(JTable tableModel) {
+    public void setTableModel(JTable tableModel) {
         tableModel.setModel(defaultTableModel);
     }
 
@@ -51,7 +51,12 @@ public class TableAdapter {
             ));
         }
     }
-
+    
+    public void fillHeader(){
+         Object headers[] = {"Nombre", "Vida", "Aguante", "Ataque", "Defensa", "Presición", "Evasión", "Suma", "¿Es fuerte?"};
+         defaultTableModel.setColumnIdentifiers(headers);
+    }
+    
     public void fillTable(ArrayList<Hero> herosList) {
         Object[] columns = new Object[defaultTableModel.getColumnCount()];
         defaultTableModel.setRowCount(0);

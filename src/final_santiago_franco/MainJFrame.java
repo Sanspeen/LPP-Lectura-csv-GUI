@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +22,8 @@ public class MainJFrame extends javax.swing.JFrame {
     DefaultTableModel tableModel;
 
     ArrayList<Hero> herosArray = new ArrayList<>();
+    
+    private TableAdapter tableAdapter;
 
     private void upload(String route, ArrayList<Hero> herosArray) {
         try {
@@ -121,10 +125,16 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    public MainJFrame() {
+    public MainJFrame() throws IOException {
         initComponents();
-        upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv", herosArray);
-        generateResume();
+        tableAdapter = new TableAdapter();
+        tableAdapter.setTableModel(tblHeros);
+        tableAdapter.fillList(herosArray, "G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv");
+        tableAdapter.fillHeader();
+        tableAdapter.fillTable(herosArray);
+        
+        /*upload("G:\\Programming codes\\Java\\Final_Santiago_Franco\\src\\final_santiago_franco\\documents\\Libro_heroes.csv", herosArray);
+        generateResume();*/
     }
 
     /**
@@ -268,7 +278,11 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+                try {
+                    new MainJFrame().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
